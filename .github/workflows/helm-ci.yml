@@ -1,0 +1,32 @@
+name: Helm Chart CI
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  helm:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.14.0
+
+      - name: Update dependencies
+        run: helm dependency update
+
+      - name: Lint chart
+        run: helm lint .
+
+      - name: Render templates (dev)
+        run: |
+          helm template booking-platform . \
+            -f values.yaml \
+            -f values-global.yaml \
+            -f values-dev.yaml
