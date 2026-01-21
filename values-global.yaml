@@ -1,0 +1,18 @@
+global:
+  keycloak:
+    auth:
+      adminUser: admin
+
+    database:
+      vendor: postgresql
+      hostname: postgresql
+      port: 5432
+      database: keycloak
+      username: keycloak
+
+  rabbitmq:
+    host: booking-platform-rabbitmq
+    port: 5672
+    username: admin
+
+    
