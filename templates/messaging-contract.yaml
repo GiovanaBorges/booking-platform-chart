@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: messaging-contract
+  namespace: dev-environment
+data:
+  RABBITMQ_BOOKING_EXCHANGE: booking.exchange
+
+  RABBITMQ_BOOKING_ROUTING_CREATED: booking.created
+  RABBITMQ_BOOKING_ROUTING_UPDATED: booking.updated
+  RABBITMQ_BOOKING_ROUTING_DELETED: booking.deleted
+  RABBITMQ_BOOKING_QUEUE_CREATED: booking.created.queue
+  RABBITMQ_BOOKING_QUEUE_UPDATED: booking.updated.queue
+  RABBITMQ_BOOKING_QUEUE_DELETED: booking.deleted.queue
+
+  RABBITMQ_BOOKING_DLQ_CREATED: booking.created.dlq
+  RABBITMQ_BOOKING_DLQ_UPDATED: booking.updated.dlq
+  RABBITMQ_BOOKING_DLQ_DELETED: booking.deleted.dlq
+
+  RABBITMQ_USERS_EXCHANGE: users.exchange
+  RABBITMQ_USERS_ROUTING_KEY: users.#
+
+  RABBITMQ_USERS_ROUTING_CREATED: users.created
+
+  RABBITMQ_USERS_QUEUE_CREATED: users.created.queue
+
+  RABBITMQ_USERS_DLQ_CREATED: users.created.dlq
+ 
+  RABBITMQ_PROVIDER_EXCHANGE: provider.exchange
+  RABBITMQ_PROVIDER_ROUTING_KEY: provider.#
+
+  RABBITMQ_PROVIDER_ROUTING_CREATED: provider.created
+  RABBITMQ_PROVIDER_ROUTING_UPDATED: provider.updated
+  RABBITMQ_PROVIDER_ROUTING_DELETED: provider.deleted
+
+  RABBITMQ_PROVIDER_QUEUE_CREATED: provider.created.queue
+  RABBITMQ_PROVIDER_QUEUE_UPDATED: provider.updated.queue
+  RABBITMQ_PROVIDER_QUEUE_DELETED: provider.deleted.queue
+
+  RABBITMQ_PROVIDER_DLQ_CREATED: provider.created.dlq
+  RABBITMQ_PROVIDER_DLQ_UPDATED: provider.updated.dlq
+  RABBITMQ_PROVIDER_DLQ_DELETED: provider.deleted.dlq
