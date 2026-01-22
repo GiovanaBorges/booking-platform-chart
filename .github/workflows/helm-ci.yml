@@ -24,9 +24,21 @@ jobs:
       - name: Lint chart
         run: helm lint .
 
+        # ⚠️ values-dev-secret.yaml 
+        # está versionado APENAS para fins de estudo
+        # 2️⃣ Lint por ambiente (dev)
+      - name: Lint chart (dev)
+        run: |
+          helm lint . \
+            -f values.yaml \
+            -f values-global.yaml \
+            -f values-dev.yaml \
+            -f values-dev-secret.yaml
+
       - name: Render templates (dev)
         run: |
           helm template booking-platform . \
             -f values.yaml \
             -f values-global.yaml \
-            -f values-dev.yaml
+            -f values-dev.yaml \
+            -f values-dev-secret.yaml 
