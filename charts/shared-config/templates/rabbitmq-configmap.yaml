@@ -1,8 +1,11 @@
+
+{{- if eq (include "rabbitmq.enabled" .) "true" }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: rabbitmq-connection
 data:
-  RABBITMQ_HOST: {{ .Values.global.rabbitmq.host | quote }}
-  RABBITMQ_PORT: {{ .Values.global.rabbitmq.port | quote }}
-  RABBITMQ_USERNAME: {{ .Values.global.rabbitmq.username | quote }}
+  RABBITMQ_HOST: {{ include "rabbitmq.host" . }}
+  RABBITMQ_PORT: {{ include "rabbitmq.port" . }}
+  RABBITMQ_USERNAME: {{ include "rabbitmq.username" . }}
+{{- end }}

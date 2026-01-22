@@ -1,11 +1,13 @@
+{{- if eq (include "keycloak.enabled" .) "true" }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: keycloak-connection
 data:
-  KEYCLOAK_ADMIN_USER: {{ .Values.global.keycloak.auth.adminUser | quote }}
-  KEYCLOAK_VENDOR: {{ .Values.global.keycloak.database.vendor | quote }}
-  KEYCLOAK_HOSTNAME: {{ .Values.global.keycloak.database.hostname | quote }}
-  KEYCLOAK_PORT: {{ .Values.global.keycloak.database.port | quote }}
-  KEYCLOAK_DATABASE: {{ .Values.global.keycloak.database.database | quote }}
-  KEYCLOAK_DB_USER: {{ .Values.global.keycloak.database.username | quote }}
+  KEYCLOAK_ADMIN_USER: {{ include "keycloak.adminUser" . }}
+  KEYCLOAK_VENDOR: {{ include "keycloak.db.vendor" . }}
+  KEYCLOAK_HOSTNAME: {{ include "keycloak.db.hostname" . }}
+  KEYCLOAK_PORT: {{ include "keycloak.db.port" . }}
+  KEYCLOAK_DATABASE: {{ include "keycloak.db.name" . }}
+  KEYCLOAK_DB_USER: {{ include "keycloak.db.username" . }}
+{{- end }}
