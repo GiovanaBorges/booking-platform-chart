@@ -27,7 +27,9 @@ jobs:
           version: v3.14.0
 
       - name: Install helm-diff plugin
-        run: helm plugin install https://github.com/databus23/helm-diff
+        run: |
+            helm plugin list | grep diff || \
+            helm plugin install https://github.com/databus23/helm-diff --version v3.9.7
 
       - name: Update dependencies
         run: helm dependency update ${{ inputs.chart_path }}
