@@ -1,0 +1,26 @@
+bookings:
+  replicaCount: 1
+  image:
+    repository: bananaooff/bookings-api
+    tag: dev
+
+notification:
+  replicaCount: 1
+  image:
+    repository: bananaooff/notification-api
+    tag: dev
+
+frontend:
+  replicas: 1
+  image:
+    repository: bananaooff/oauth-client
+    tag: dev
+
+rabbitmq:
+  replicaCount: 1
+
+redis:
+  replicaCount: 1
+
+keycloak:
+  replicaCount: 1
