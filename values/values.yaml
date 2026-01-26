@@ -1,0 +1,91 @@
+namespace: dev-environment
+
+ingress:
+  enabled: true
+  host: local.dev
+
+bookings:
+  name: bookings
+  replicas: 1
+  port: 8081
+  image:
+    repository: bananaooff/bookings-api
+    tag: "latest"
+
+notification:
+  name: notification
+  replicas: 1
+  port: 8082
+  image:
+    repository: bananaooff/notification-api
+    tag: "latest"
+
+frontend:
+  name: frontend
+  replicas: 1
+  port: 80
+  image:
+    repository: bananaooff/oauth-client
+    tag: "latest"
+
+
+keycloak:
+  image:
+    tag: 24.0.0
+
+  auth:
+    adminUser: admin
+
+  database:
+    vendor: postgresql
+    hostname: postgresql
+    port: 5432
+    database: keycloak
+    username: keycloak
+
+  proxy: edge
+
+  hostname: local.dev
+
+  extraEnvVars:
+    - name: KC_HTTP_RELATIVE_PATH
+      value: /auth
+  
+  extraEnvVarsFrom:
+    - configMapRef:
+        name: keycloak-connection
+    - secretRef:
+        name: keycloak-credentials
+
+  service:
+    ports:
+      http: 8080
+
+  ingress:
+    enabled: true
+    hostname: local.dev
+    path: /auth
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+
+rabbitmq:
+  auth:
+    username: admin
+
+  service:
+    ports:
+      amqp: 5672
+
+redis:
+  port: 6379
+  auth:
+    enabled: true
+
+
