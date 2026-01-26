@@ -1,0 +1,55 @@
+name: Helm Validate
+
+on:
+  workflow_call:
+    inputs:
+      values_files:
+        description: "Lista de arquivos values a serem usados"
+        required: true
+        type: string
+      chart_path:
+        description: "Caminho do chart"
+        required: false
+        default: "."
+        type: string
+
+jobs:
+  helm:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.14.0
+
+      - name: Install helm-diff plugin
+        run: helm plugin install https://github.com/databus23/helm-diff
+
+      - name: Update dependencies
+        run: helm dependency update ${{ inputs.chart_path }}
+
+      - name: Helm lint
+        run: helm lint ${{ inputs.chart_path }}
+
+      - name: Helm lint chart dev (with values)
+        run: |
+          helm lint ${{ inputs.chart_path }} \
+            ${{ inputs.values_files }}
+
+      - name: Helm template
+        run: |
+          helm template booking-platform ${{ inputs.chart_path }} \
+            ${{ inputs.values_files }}
+
+      - name: Helm diff (preview changes)
+        run: |
+          helm diff upgrade \
+            --install \
+            ${{ inputs.release_name }} \
+            ${{ inputs.chart_path }} \
+            ${{ inputs.values_files }} \
+            --context 3
