@@ -1,0 +1,21 @@
+name: Ci Infra
+
+on:
+  pull_request:
+  push:
+     paths:
+      - charts/keycloak/**
+      - charts/rabbitmq/**
+      - charts/redis/**
+      - values/values-infra.yaml
+
+jobs:
+   helm-infra:
+    uses: ./.github/workflows/helm-validate.yml
+    with:
+      values_files: >
+        -f values/values.yaml
+        -f values/values-global.yaml
+        -f values/values-dev.yaml
+        -f values/values-dev-secret.yaml
+        -f values/values-infra.yaml
