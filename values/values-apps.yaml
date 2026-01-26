@@ -1,0 +1,13 @@
+bookings:
+  enabled: true
+notification:
+  enabled: true
+frontend:
+  enabled: true
+
+keycloak:
+  enabled: false
+rabbitmq:
+  enabled: false
+redis:
+  enabled: false
