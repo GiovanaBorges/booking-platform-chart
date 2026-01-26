@@ -1,0 +1,23 @@
+bookings:
+  replicaCount: 3
+  image:
+    tag: "1.4.0"
+
+notification:
+  replicaCount: 3
+  image:
+    tag: "1.4.0"
+
+frontend:
+  replicas: 2
+  image:
+    tag: "1.4.0"
+
+rabbitmq:
+  replicaCount: 2
+
+redis:
+  replicaCount: 2
+
+keycloak:
+  replicaCount: 2
