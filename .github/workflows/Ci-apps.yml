@@ -1,0 +1,21 @@
+name: CI Apps
+
+on:
+  pull_request:
+  push:
+    paths:
+      - charts/bookings/**
+      - charts/notification/**
+      - charts/front/**
+      - values/values-apps.yaml
+
+jobs:
+   helm-apps:
+    uses: ./.github/workflows/helm-validate.yml
+    with:
+      values_files: >
+        -f values/values.yaml
+        -f values/values-global.yaml
+        -f values/values-dev.yaml
+        -f values/values-dev-secret.yaml
+        -f values/values-apps.yaml
