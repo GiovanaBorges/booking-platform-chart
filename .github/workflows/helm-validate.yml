@@ -34,9 +34,6 @@ jobs:
       - name: Update dependencies
         run: helm dependency update ${{ inputs.chart_path }}
 
-      - name: Helm lint
-        run: helm lint ${{ inputs.chart_path }}
-
       - name: Helm lint chart dev (with values)
         run: |
           helm lint ${{ inputs.chart_path }} \
