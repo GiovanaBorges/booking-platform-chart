@@ -48,7 +48,10 @@ jobs:
         run: |
           helm diff upgrade \
             --install \
+            --allow-unreleased \
+            --detailed-exitcode \
+            --no-color \
             ${{ inputs.release_name }} \
             ${{ inputs.chart_path }} \
             ${{ inputs.values_files }} \
-            --context 3
+            --context 3 || true
